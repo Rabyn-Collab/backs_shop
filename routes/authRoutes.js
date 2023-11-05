@@ -7,5 +7,7 @@ router.get('/', auth.userLogin
   // (req, res) => auth.userLogin(req, res)
 );
 
+router.post('/api/userRegister', auth.userRegister);
+
 
 module.exports = router;
