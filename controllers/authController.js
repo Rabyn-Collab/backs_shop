@@ -8,10 +8,18 @@ module.exports.userLogin = async (req, res) => {
     const isExist = await User.findOne({ email: email });
 
     if (isExist) {
-
       const isPass = bcrypt.compareSync(password, isExist.password);
-
-      if (isPass) return res.status(200).json({ message: 'successfully login' });
+      const token = jwt.sign({
+        id: isExist._id,
+        isAdmin: isExist.isAdmin
+      }, 'jsonToken');
+      if (isPass) return res.status(200).json({
+        email,
+        token,
+        fullname: isExist.fullname,
+        isAdmin: isExist.isAdmin,
+        shippingAddress: isExist.shippingAddress
+      });
       return res.status(401).json({ message: 'invalid credential' });
 
     } else {
