@@ -6,7 +6,7 @@ const auth = require('../controllers/authController');
 router.get('/', auth.userLogin
   // (req, res) => auth.userLogin(req, res)
 );
-
+router.post('/api/userLogin', auth.userLogin);
 router.post('/api/userRegister', auth.userRegister);
 
 
