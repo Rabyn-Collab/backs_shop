@@ -20,14 +20,14 @@ module.exports.userLogin = async (req, res) => {
         isAdmin: isExist.isAdmin,
         shippingAddress: isExist.shippingAddress
       });
-      return res.status(401).json({ message: 'invalid credential' });
+      return res.status(401).json('invalid credential');
 
     } else {
-      return res.status(401).json({ message: 'invalid credential' });
+      return res.status(401).json('invalid credential');
     }
 
   } catch (err) {
-    return res.status(400).json({ message: `${err}` });
+    return res.status(400).json(`${err}`);
   }
 
 }
@@ -39,7 +39,7 @@ module.exports.userRegister = async (req, res) => {
     const isExist = await User.findOne({ email: email });
 
     if (isExist) {
-      return res.status(403).json({ message: 'user already exist' });
+      return res.status(403).json('user already exist');
     } else {
       const hash = await bcrypt.hash(password, 12);
       await User.create({
@@ -47,11 +47,11 @@ module.exports.userRegister = async (req, res) => {
         fullname,
         password: hash
       });
-      return res.status(201).json({ message: 'successfully registered' });
+      return res.status(201).json('successfully registered');
     }
 
   } catch (err) {
-    return res.status(400).json({ message: `${err}` });
+    return res.status(400).json(`${err}`);
   }
 
 
