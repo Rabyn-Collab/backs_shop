@@ -4,10 +4,13 @@ const product = require('../controllers/productController');
 const Joi = require('joi');
 const validator = require('express-joi-validation').createValidator({});
 const check = require('../middlewares/authCheck');
-const fileC = require('../middlewares/fileCheck');
+const checkFile = require('../middlewares/fileCheck');
 
-
-router.post('/api/createOrder', fileC.fileCheck, product.createOrder);
+router.get('/api/products', product.getAllProducts);
+router.post('/api/createOrder',
+  check.checkUser, check.checkAdmin,
+  checkFile.fileCheck,
+  product.createOrder);
 
 
 module.exports = router;

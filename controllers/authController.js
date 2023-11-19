@@ -10,8 +10,7 @@ module.exports.userLogin = async (req, res) => {
     if (isExist) {
       const isPass = bcrypt.compareSync(password, isExist.password);
       const token = jwt.sign({
-        id: isExist._id,
-        isAdmin: isExist.isAdmin
+        id: isExist._id
       }, 'jsonToken');
       if (isPass) return res.status(200).json({
         email,
