@@ -17,7 +17,8 @@ module.exports.getAllProducts = async (req, res) => {
 
 
 module.exports.createOrder = async (req, res) => {
-  const { product_name,
+  const {
+    product_name,
     product_detail,
     product_price,
     brand,
@@ -38,7 +39,7 @@ module.exports.createOrder = async (req, res) => {
 
     return res.status(201).json('product create successfully');
   } catch (err) {
-    console.log(err);
+
     return res.status(400).json(`${err}`);
   }
 

@@ -26,7 +26,7 @@ module.exports.checkAdmin = async (req, res, next) => {
   if (req.user.isAdmin) {
     next();
   } else {
-    return res.status(401).json('you are not authorised');
+    return res.status(401).json('you are not admin to authorised');
   }
 
 }
