@@ -9,9 +9,10 @@ const loginSchema = Joi.object({
   password: Joi.string().min(5).max(20).required(),
 })
 
-router.get('/', auth.userLogin
-  // (req, res) => auth.userLogin(req, res)
-);
+
+
+
+
 router.post('/api/userLogin', validator.body(loginSchema), auth.userLogin);
 router.post('/api/userRegister', auth.userRegister);
 
