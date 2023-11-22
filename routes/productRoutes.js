@@ -11,10 +11,19 @@ router.get('/', (req, res) => {
 });
 
 router.get('/api/products', product.getAllProducts);
-router.post('/api/createOrder',
+
+router.post('/api/createProduct',
   check.checkUser, check.checkAdmin,
   checkFile.fileCheck,
-  product.createOrder);
+  product.createProduct);
+
+router.patch('/api/productUpdate/:id',
+  check.checkUser, check.checkAdmin,
+  checkFile.updateCheck,
+  product.updateProduct);
+
+
+
 router.get('/api/product/:id', product.getProductById);
 
 

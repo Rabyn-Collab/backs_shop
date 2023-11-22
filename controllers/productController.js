@@ -35,7 +35,7 @@ module.exports.getProductById = async (req, res) => {
 
 
 
-module.exports.createOrder = async (req, res) => {
+module.exports.createProduct = async (req, res) => {
   const {
     product_name,
     product_detail,
@@ -57,6 +57,50 @@ module.exports.createOrder = async (req, res) => {
 
 
     return res.status(201).json('product create successfully');
+  } catch (err) {
+
+    return res.status(400).json(`${err}`);
+  }
+
+}
+
+
+
+
+module.exports.updateProduct = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const {
+    product_name,
+    product_detail,
+    product_price,
+    brand,
+    category,
+    countInStock,
+  } = req.body;
+
+  try {
+
+    if (mongoose.isValidObjectId(id)) {
+      const isExist = await Product.findById(id);
+      if (isExist) {
+        isExist.product_name = product_name || isExist.product_name;
+        isExist.product_detail = product_detail || isExist.product_detail;
+        isExist.product_price = product_price || isExist.product_price;
+        isExist.brand = brand || isExist.brand;
+        isExist.category = category || isExist.category;
+        isExist.countInStock = countInStock || isExist.countInStock;
+        isExist.save();
+        return res.status(201).json('product updated successfully');
+      } else {
+        return res.status(401).json('product not found');
+      }
+
+    } else {
+      return res.status(400).json('please provide valid id');
+    }
+
+
   } catch (err) {
 
     return res.status(400).json(`${err}`);
