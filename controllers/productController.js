@@ -69,7 +69,7 @@ module.exports.createProduct = async (req, res) => {
 
 module.exports.updateProduct = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   const {
     product_name,
     product_detail,
@@ -90,6 +90,7 @@ module.exports.updateProduct = async (req, res) => {
         isExist.brand = brand || isExist.brand;
         isExist.category = category || isExist.category;
         isExist.countInStock = countInStock || isExist.countInStock;
+        isExist.product_image = req.image || isExist.product_image;
         isExist.save();
         return res.status(201).json('product updated successfully');
       } else {
