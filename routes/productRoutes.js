@@ -6,6 +6,10 @@ const validator = require('express-joi-validation').createValidator({});
 const check = require('../middlewares/authCheck');
 const checkFile = require('../middlewares/fileCheck');
 
+
+const methodNotAllow = (req, res) => res.status(405).json('method not allowed');
+
+
 router.get('/', (req, res) => {
   return res.status(200).json('welcome shop api');
 });
@@ -22,10 +26,9 @@ router.patch('/api/productUpdate/:id',
   checkFile.updateCheck,
   product.updateProduct);
 
-
-
-router.get('/api/product/:id', product.getProductById);
-
+router.route('/api/product/:id').get(product.getProductById)
+  .delete(check.checkUser, check.checkAdmin,
+    product.removeProduct).all(methodNotAllow);
 
 
 module.exports = router;
