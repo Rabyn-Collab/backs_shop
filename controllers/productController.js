@@ -119,7 +119,7 @@ module.exports.removeProduct = async (req, res) => {
       const isExist = await Product.findById(id);
 
       if (isExist) {
-        console.log(isExist.product_image);
+
         fs.unlink(`.${isExist.product_image}`, (err) => {
 
         });
