@@ -5,6 +5,7 @@ const port = 5000;
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 const fileUpload = require('express-fileupload');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +29,7 @@ app.use(fileUpload({
   abortOnLimit: true
 }));
 app.use(productRoutes);
+app.use(orderRoutes);
 
 app.use((req, res) => {
   return res.status(404).json("not found");
