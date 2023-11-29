@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 module.exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find().populate('user', '-password');
     return res.status(200).json(orders);
   } catch (err) {
     console.log(err);
@@ -36,7 +36,7 @@ module.exports.getOrderById = async (req, res) => {
   const { id } = req.params;
   try {
     if (mongoose.isValidObjectId(id)) {
-      const order = await Order.findById(id);
+      const order = await Order.findById(id).populate('user', '-password');
       return res.status(200).json(order);
     } else {
       return res.status(400).json('please provide valid id');
