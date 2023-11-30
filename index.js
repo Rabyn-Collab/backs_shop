@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/api/uploads', express.static('uploads'));
-
+mongoose.set('strictQuery', false);
 mongoose.connect('mongodb+srv://Babyn900:moles900@cluster0.jzgyqaw.mongodb.net/Shopy').then((val) => {
   app.listen(port, () => {
     console.log('connected');
