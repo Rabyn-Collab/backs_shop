@@ -140,3 +140,44 @@ module.exports.removeProduct = async (req, res) => {
   }
 
 }
+
+
+
+
+
+module.exports.addReview = async (req, res) => {
+  const { id } = req.params;
+  const { comment, username, rating } = req.body;
+  try {
+    const isExist = await Product.findById(id);
+
+    if (isExist) {
+      const isReviewed = isExist.reviews.find((rev) => rev.user.toString() === req.user._id.toString());
+
+      // if (isReviewed) {
+      //   return res.status(400).json('you have already added a review');
+      // } else {
+      isExist.reviews.push({
+        comment,
+        username,
+        rating: Number(rating),
+        user: req.user._id
+      });
+      const total = isExist.reviews.reduce((p, n) => p + n.rating, 0)
+      isExist.numReviews = isExist.reviews.length;
+      isExist.rating = total / isExist.reviews.length;
+      await isExist.save();
+      return res.status(201).json('review added successfully');
+      // }
+
+
+    } else {
+      return res.status(400).json('product not found');
+    }
+
+  } catch (err) {
+
+    return res.status(400).json(`${err}`);
+  }
+
+}

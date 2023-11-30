@@ -27,6 +27,7 @@ router.patch('/api/productUpdate/:id',
   product.updateProduct);
 
 router.route('/api/product/:id').get(product.getProductById)
+  .patch(check.checkUser, product.addReview)
   .delete(check.checkUser, check.checkAdmin,
     product.removeProduct).all(methodNotAllow);
 
