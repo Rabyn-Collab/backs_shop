@@ -13,6 +13,7 @@ module.exports.userLogin = async (req, res) => {
         id: isExist._id
       }, 'jsonToken');
       if (isPass) return res.status(200).json({
+        id: isExist._id,
         email,
         token,
         fullname: isExist.fullname,

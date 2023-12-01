@@ -154,21 +154,21 @@ module.exports.addReview = async (req, res) => {
     if (isExist) {
       const isReviewed = isExist.reviews.find((rev) => rev.user.toString() === req.user._id.toString());
 
-      // if (isReviewed) {
-      //   return res.status(400).json('you have already added a review');
-      // } else {
-      isExist.reviews.push({
-        comment,
-        username,
-        rating: Number(rating),
-        user: req.user._id
-      });
-      const total = isExist.reviews.reduce((p, n) => p + n.rating, 0)
-      isExist.numReviews = isExist.reviews.length;
-      isExist.rating = total / isExist.reviews.length;
-      await isExist.save();
-      return res.status(201).json('review added successfully');
-      // }
+      if (isReviewed) {
+        return res.status(400).json('you have already added a review');
+      } else {
+        isExist.reviews.push({
+          comment,
+          username,
+          rating: Number(rating),
+          user: req.user._id
+        });
+        const total = isExist.reviews.reduce((p, n) => p + n.rating, 0)
+        isExist.numReviews = isExist.reviews.length;
+        isExist.rating = total / isExist.reviews.length;
+        await isExist.save();
+        return res.status(201).json('review added successfully');
+      }
 
 
     } else {
