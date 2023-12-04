@@ -21,10 +21,10 @@ router.post('/api/createProduct',
   checkFile.fileCheck,
   product.createProduct);
 
-router.patch('/api/productUpdate/:id',
+router.route('/api/productUpdate/:id').patch(
   check.checkUser, check.checkAdmin,
   checkFile.updateCheck,
-  product.updateProduct);
+  product.updateProduct).all(methodNotAllow);
 
 router.route('/api/product/:id').get(product.getProductById)
   .patch(check.checkUser, product.addReview)

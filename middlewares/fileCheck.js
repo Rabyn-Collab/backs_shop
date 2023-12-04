@@ -48,6 +48,7 @@ module.exports.updateCheck = (req, res, next) => {
         }
       });
 
+
       file.mv(`./uploads/${file.name}`, (err) => {
 
       });
